@@ -1,44 +1,42 @@
+// You need to define the schema for a reservation
+// The fields you require are:
+// associated user
+// numOfOccupants (number of occupants)
+// roomType (options are 'single bed', 'double bed', 'queen', 'king')
+// checkIn (just date, not time)
+// checkOut (just date, not time)
+
 const mongoose = require('mongoose');
 
 const ReservationSchema = new mongoose.Schema({
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
-  },
-  restaurant: {
-    type: String,
-    enum: [
-      'Kelseys',
-      'Montanas',
-      'Outbacks',
-      'Harveys',
-      'Swiss Chalet'
-    ],
-    default: 'Kelseys',
-    required: true
-  },
-  dateAndTime: {
-    type: Date,
-    required: true,
-    set: val => {
-      return new Date(val);
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
     },
-    get: val => {
-      // return `${val.getFullYear()}-${val.getMonth() + 1}-${val.getDate()}T${val.getHours()}:${val.getMinutes()}:${val.getSeconds()}`;
-      const date = val.toISOString();
-      return date.substring(0, date.length - 1);
+    numOfOccupants: {
+        type: Number,
+        required: true
+    },
+
+    roomType: {
+        type: String,
+        enum: ['single bed', 'double bed', 'queen', 'king'],
+        default: 'single bed'
+    },
+
+    checkIn: {
+        type: Date,
+        required: true
+    },
+
+    checkOut: {
+        type: Date,
+        required: true
     }
-  },
-  quantityOfGuests: {
-    type: Number,
-    default: 2,
-    required: true
-  }
-}, {
-  timestamps: true
-});
-
-
+},
+    {
+        timestamps: true
+    });
 
 module.exports = mongoose.model('Reservation', ReservationSchema);

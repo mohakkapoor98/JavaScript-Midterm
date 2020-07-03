@@ -1,3 +1,6 @@
+// Mohak Mohak 
+//200425207
+
 const express = require('express');
 const app = express();
 require('dotenv').config();
@@ -57,7 +60,7 @@ app.use('/', (req, res, next) => {
   res.locals.flash = req.flash();
   res.locals.formData = req.session.formData || {};
   req.session.formData = {};
-  
+
   // Authentication helper
   res.locals.authorized = req.isAuthenticated();
   if (res.locals.authorized) res.locals.email = req.session.passport.user;
