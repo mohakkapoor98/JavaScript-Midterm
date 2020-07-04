@@ -9,6 +9,7 @@
 
   <div class="content">
     <% for (let reservation of reservations) { %>
+    <% if (authorized && (typeof reservation.user === 'undefined' || reservation.user.email === email)) { %>
     <div class="card my-5">
       <div class="card-header">
         <h5 class="card-title">
@@ -26,7 +27,8 @@
           Your room is a <%= reservation.roomType %> .
         </p>
       </div>
-
+      <% } %>
+      <% if (authorized && (typeof reservation.user === 'undefined' || reservation.user.email === email)) { %>
       <div class="card-footer text-muted">
         <a href="/reservations/<%= reservation.id %>/edit"><i class="fa fa-edit">&nbsp;</i>Change your reservation</a>
         <br>
@@ -39,6 +41,7 @@
           </button>
         </form>
       </div>
+      <% } %>
     </div>
     <% } %>
   </div>
